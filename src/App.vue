@@ -1,5 +1,8 @@
 <script setup>
-import { reactive } from 'vue';
+  import { reactive } from 'vue';
+  import Cabecalho from './components/Cabecalho.vue';
+  import Fomulario from './components/Formulario.vue';
+  import Resultado from './components/Resultado.vue';
 
   const estado = reactive({
     filtro: 'soma',
@@ -57,32 +60,10 @@ import { reactive } from 'vue';
 
 <template>
   <div class="container">
-    <header class="p-5 mb-4 mt-4 bg-body-secondary text-center rounded-3">
-      <h1>Calculadora aritmética </h1>
-    </header>
-    <form class="p-5">
-      <div class="row">
-        <div class="col-md-4">
-          <input @keyup="evento => estado.valorA = evento.target.value" type="number" placeholder="Digite o valor ''A'' " class="form-control" required>
-        </div>
-        <div class="col-md-4">
-          <input @keyup="evento => estado.valorB = evento.target.value" type="number" placeholder="Digite o valor ''B'' " class="form-control" required>
-        </div>
-        <div class="col-md-4">
-          <select @change="evento => estado.filtro = evento.target.value" class="form-control">
-            <option value="soma">Soma</option>
-            <option value="subtracao">Subtração</option>
-            <option value="multiplicacao">Multiplicação</option>
-            <option value="divisao">Divisão</option>
-          </select>
-        </div>
-      </div>
-    </form>
-    <div class="text-center">
-      <h2 class="mb-4">Resultado</h2>
-      <p class="fs-3">{{ nomeFuncaoAritmetica() }} é igual a {{ funcaoAritmetica() }}.</p>
-    </div>
-</div>
+    <Cabecalho cabecalho></Cabecalho>
+    <Fomulario :input-valor-a="evento => estado.valorA = evento.target.value" :input-valor-b="evento => estado.valorB = evento.target.value" :trocar-filtro="evento => estado.filtro = evento.target.value"></Fomulario>
+    <Resultado :nome-funcao="nomeFuncaoAritmetica()" :resultado="funcaoAritmetica()"></Resultado>
+  </div>
 </template>
 
 <style scoped>
